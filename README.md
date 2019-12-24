@@ -94,3 +94,25 @@ ENTRYPOINT ["dotnet", "NetCoreWebApp.dll"]
 2. use command to create menifest : ** kuebctl create -f .\k8deploy.yml**
 3. to apply update in yml : **kubectl apply -f .\k8deploy.yml**
 4. to apply changes in application,  **docker build -t heemabhatt/netcorewebapp .** and then **kubectl delete -f .\k8deploy.yml** and **kubectl apply -f .\k8deploy.yml**
+
+
+# AKS Deployment
+
+1. Create AKS Cluster with name demok8cluster and resource group K8demoRg
+2. Create aksdeploy.yml and upload on Azure bash
+3. once deployment is successful, run following commands: 
+az aks get-credentials --resource-group K8demoRg --name demok8cluster
+
+kubectl get nodes
+
+kubectl apply -f aksdeploy.yaml
+
+kubectl get service netcorewebappservice --watch
+
+kubectl get pods
+
+# to open dashboard 
+
+kubectl create clusterrolebinding kubernetes-dashboard --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard
+
+az aks browse --resource-group K8demoRg --name demok8cluster
