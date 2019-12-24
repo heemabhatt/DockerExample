@@ -87,3 +87,10 @@ ENTRYPOINT ["dotnet", "NetCoreWebApp.dll"]
 1. Run command **$TOKEN=((kubectl -n kube-system describe secret default | Select-String "token:") -split " +")[1]**
 2. Run command **kubectl config set-credentials docker-for-desktop --token="${TOKEN}"**
 3. copy token from C:\Users\hbhatt\.kube\config file and put it in ui. 
+
+# To setup menifest 
+
+1. create yaml as k8deploy.yml , provide replica count, metadata of app, port , node port (this is used to run app locally like http://localhost:30069/ where 30069 is nodeport), version details
+2. use command to create menifest : ** kuebctl create -f .\k8deploy.yml**
+3. to apply update in yml : **kubectl apply -f .\k8deploy.yml**
+4. to apply changes in application,  **docker build -t heemabhatt/netcorewebapp .** and then **kubectl delete -f .\k8deploy.yml** and **kubectl apply -f .\k8deploy.yml**
