@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netcorewebapp-deployment
+  labels:
+    app: netcorewebapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: netcorewebapp
+  template:
+    metadata:
+      labels:
+        app: netcorewebapp
+    spec:
+      containers:
+      - name: netcorewebapp
+        image: heemabhatt/netcorewebapp:v2
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: netcorewebappservice
+spec:
+  selector:
+    app: netcorewebapp
+  ports:
+  - name: hport
+    protocol: TCP
+    port: 80
+    nodePort: 30069
+  type: NodePort
